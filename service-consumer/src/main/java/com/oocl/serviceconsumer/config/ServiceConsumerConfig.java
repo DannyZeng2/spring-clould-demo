@@ -3,6 +3,7 @@ package com.oocl.serviceconsumer.config;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RandomRule;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -13,10 +14,13 @@ import org.springframework.web.client.RestTemplate;
  * @Date: 2021/5/1 20:36
  * @LastEditors: Danny Zeng
  * @LastEditTime: 2021/5/1 20:36
+ *
+ * 该类必须放置在扫描不到的包下, 或者添加排除
  */
 
 @Configuration
-public class BeanConfig {
+@RibbonClient(name = "service-provider", configuration = ServiceConsumerConfig.class)
+public class ServiceConsumerConfig {
 
     @LoadBalanced
     @Bean
