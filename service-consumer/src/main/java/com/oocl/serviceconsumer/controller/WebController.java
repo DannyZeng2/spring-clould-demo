@@ -19,6 +19,6 @@ public class WebController {
 
     @RequestMapping("/web/hello")
     public String sayHello() {
-        return "consumer:" + restTemplate.getForEntity("http://SERVICE-PROVIDER-01/service/hello",String.class).getBody();
+        return "consumer:" + restTemplate.getForEntity("http://SERVICE-PROVIDER/service/hello",String.class).getBody();
     }
 }

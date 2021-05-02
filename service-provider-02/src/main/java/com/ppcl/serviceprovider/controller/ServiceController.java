@@ -8,7 +8,7 @@ public class ServiceController {
 
     @RequestMapping("/service/hello")
      public String sayHello() {
-         return "hello world...";
+         return "hello service provider 02...";
      }
 
 }
