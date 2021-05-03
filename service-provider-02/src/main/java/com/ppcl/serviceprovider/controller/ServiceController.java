@@ -10,7 +10,13 @@ public class ServiceController {
 
     @GetMapping("/service/hello")
      public String sayHello() {
-         return "hello service provider 02...";
+
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        return "hello service provider 02...";
      }
 
     @GetMapping("/service/user")

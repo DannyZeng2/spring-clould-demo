@@ -1,5 +1,9 @@
 package com.oocl.serviceconsumer.controller;
 
+import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import com.oocl.serviceconsumer.hystrix.MyHystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -23,8 +27,14 @@ public class WebController {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
+    /**
+     * 设置超时时间2s，默认1s
+     * 忽略异常，不进入fallbackMethod方法：ignoreExceptions = Exception.class
+     */
     @RequestMapping("/web/hello")
+    @HystrixCommand(fallbackMethod = "getErrorMsg", commandProperties = {@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000" )})
     public String sayHello() {
+        // int a = 10/0;
         return "consumer:" + restTemplate.getForEntity("http://SERVICE-PROVIDER/service/hello",String.class).getBody();
     }
 
@@ -40,4 +50,18 @@ public class WebController {
         return instance.toString();
 
     }
+
+    private String getErrorMsg(Throwable throwable) {
+        // 远程调用失败后处理逻辑
+        System.out.println(throwable.getMessage());
+        return "error...";
+    }
+
+    @RequestMapping("/web/hystrix")
+    public String testHystrixCommand() {
+        MyHystrixCommand command = new MyHystrixCommand(com.netflix.hystrix.HystrixCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("")),restTemplate);
+        return command.execute();
+    }
+
+
 }
