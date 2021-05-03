@@ -23,11 +23,15 @@ public class MyHystrixCommand extends HystrixCommand<String> {
 
     @Override
     protected String run() throws Exception {
+        Thread.sleep(100);
         return "hystrix consumer:" + restTemplate.getForEntity("http://SERVICE-PROVIDER/service/hello",String.class).getBody();
     }
 
     @Override
     protected String getFallback() {
+        Throwable throwable = super.getExecutionException();
+        System.out.println(throwable.getMessage());
+        System.out.println(throwable.getCause());
         return "error";
     }
 }

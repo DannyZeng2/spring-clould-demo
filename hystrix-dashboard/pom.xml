@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.oocl</groupId>
-    <artifactId>service-consumer</artifactId>
+    <artifactId>hystrix-dashboard</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>service-consumer</name>
+    <name>hystrix-dashboard</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -23,17 +23,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
         </dependency>
 
         <dependency>
@@ -85,7 +75,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.oocl.serviceconsumer.ServiceConsumerApplication</mainClass>
+                    <mainClass>com.oocl.hystrixdashboard.HystrixDashboardApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

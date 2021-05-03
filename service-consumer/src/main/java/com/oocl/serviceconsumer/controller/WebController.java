@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 /**
  * @version: 1.0.0
  * @Author: Danny Zeng
@@ -58,9 +61,21 @@ public class WebController {
     }
 
     @RequestMapping("/web/hystrix")
-    public String testHystrixCommand() {
-        MyHystrixCommand command = new MyHystrixCommand(com.netflix.hystrix.HystrixCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("")),restTemplate);
-        return command.execute();
+    public String testHystrixCommand() throws ExecutionException, InterruptedException {
+        MyHystrixCommand command = new MyHystrixCommand(
+                com.netflix.hystrix.HystrixCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("")),
+                restTemplate);
+        // 同步调用（等待结果返回,才继续往下执行）
+        // String syncResult = command.execute();
+
+        // 异步调用
+        Future<String> future = command.queue();
+        String noSyncResult = future.get();
+
+        // 其他业务逻辑
+        System.out.println("other logic....");
+        return noSyncResult;
+
     }
 
 
