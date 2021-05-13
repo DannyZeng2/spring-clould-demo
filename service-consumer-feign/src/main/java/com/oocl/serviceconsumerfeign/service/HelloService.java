@@ -18,4 +18,7 @@ public interface HelloService {
 
     @GetMapping("/service/hello")
     String sayHello();
+
+    @GetMapping("/service/user")
+    String getUser();
 }

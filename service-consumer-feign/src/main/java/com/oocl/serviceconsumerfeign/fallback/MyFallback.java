@@ -17,4 +17,9 @@ public class MyFallback implements HelloService {
     public String sayHello() {
         return "远程服务不可用，请稍后...";
     }
+
+    @Override
+    public String getUser() {
+        return "远程服务不可用，请稍后...";
+    }
 }

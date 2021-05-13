@@ -9,7 +9,7 @@ public class ServiceController {
 
     @GetMapping("/service/hello")
      public String sayHello() {
-        int a = 10/0;
+        // int a = 10/0;
         return "hello service provider 01...";
      }
 

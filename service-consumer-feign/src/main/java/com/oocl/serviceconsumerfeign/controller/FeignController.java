@@ -28,4 +28,9 @@ public class FeignController {
         return "consumer:" + helloService.sayHello();
     }
 
+    @RequestMapping("web/user")
+    public String getUser() {
+        return "consumer:" + helloService.getUser();
+    }
+
 }

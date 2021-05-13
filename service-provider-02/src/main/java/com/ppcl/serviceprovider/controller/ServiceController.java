@@ -11,11 +11,11 @@ public class ServiceController {
     @GetMapping("/service/hello")
      public String sayHello() {
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         return "hello service provider 02...";
      }

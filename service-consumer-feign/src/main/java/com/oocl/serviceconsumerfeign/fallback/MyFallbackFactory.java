@@ -15,6 +15,11 @@ public class MyFallbackFactory implements FallbackFactory<HelloService> {
             public String sayHello() {
                 return throwable.getMessage();
             }
+
+            @Override
+            public String getUser() {
+                return throwable.getMessage();
+            }
         };
     }
 }
